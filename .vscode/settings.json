@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "random": "c"
+        "random": "c",
+        "complex": "c"
     },
     "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
 }
