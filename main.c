@@ -4,11 +4,10 @@
 #include <stdlib.h>
 
 int Discr(int arg[]);
-void Solv(int arg[], int x1, int x2);
+void Solv(int arg[], int D);
 
 int main(){
-    int ind = 0, arg[3]; //вспомогательная переменная и массив для хранения коэффициентов
-    float x1, x2; //переменные для решений уравнения
+    int ind = 0, arg[3], D;//вспомогательная переменная и массив для хранения коэффициентов
     char symb, str[100]; //переменная и массив для ввода коэффициентов
 
     printf("Enter coefficients separated by space\n");
@@ -23,36 +22,37 @@ int main(){
         }
     }
 
-    Solv(arg,x1,x2);
+    D = Discr(arg);
+
+    Solv(arg, D);
     
     return 0;
 }
-
-
 
 int Discr(int arg[]){ //расчет дискриминанта
             return arg[1]*arg[1] - 4*arg[0]*arg[2];
         }
 
+void Solv(int arg[], int D){
 
-
-void Solv(int arg[], int x1, int x2){
+    float x1, x2; //переменные для решений уравнения
 
     if (arg[0] == 0){//проверка на нулевой коэффициент
-        printf("It's not a square equation, enter correct coefficients");
+        printf("It's not a square equation, enter correct coefficients\n");
+        main();
 
     }else{
-        if(Discr(arg) > 0){ //решения при дискриминанте >0
-            x1 = (-arg[1] + sqrt(Discr(arg)))/(2*arg[0]);
-            x2 = (-arg[1] - sqrt(Discr(arg)))/(2*arg[0]);
+        if(D > 0){ //решения при дискриминанте >0
+            x1 = (-arg[1] + sqrt(D))/(2*arg[0]);
+            x2 = (-arg[1] - sqrt(D))/(2*arg[0]);
             printf("Solutions: %.2f %.2f \n",x1,x2);
 
-        } else if (Discr(arg) == 0){ //решения при дискриминанте =0
+        } else if (D == 0){ //решения при дискриминанте =0
             x1 = -arg[1]/(2*arg[0]);
             printf("Solution: %.2f \n",x1);
 
         } else{ //случай отсутствия решений
-            printf("There is no rational solutions");
+            printf("There is no rational solutions\n");
 
         }
     }
