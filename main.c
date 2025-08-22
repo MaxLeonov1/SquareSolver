@@ -4,12 +4,12 @@
 #include <stdlib.h>
 
 
+int NullEqualityCheck (double double_1);
+int DoubleCompare (double double_1, double double_2);
 int SolveEquation (double* coefficient_a, double* coefficient_b, double* coefficient_c,
                    double* solution_1, double* solution_2);
 double* ScanSolutions (double coefficients[]);
-int NullEqualityCheck (double double_1);
-int DoubleCompare (double double_1, double double_2);
-void PrintSolutions();
+void PrintSolutions(int solution_number, double solution_1, double solution_2);
 
 
 int main() {
@@ -61,6 +61,18 @@ int SolveEquation(double* coefficient_a, double* coefficient_b, double* coeffici
         *solution_1 = (-*coefficient_b - sqrt(Discriminant)) / (2*(*coefficient_a));
         *solution_2 = (-*coefficient_b + sqrt(Discriminant)) / (2*(*coefficient_a));
         return 2;
+    }
+}
+
+
+void PrintSolutions(int solution_number, double solution_1, double solution_2) {
+    switch(solution_number) {
+        case -1 :
+            printf("Infinite number of solutions");
+        case 0 :
+            printf("There is no solutions");
+        case 1:
+            printf("It's a linear e qeasion")
     }
 }
 
