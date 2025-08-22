@@ -9,7 +9,7 @@ int DoubleCompare (double double_1, double double_2);
 int SolveEquation (double* coefficient_a, double* coefficient_b, double* coefficient_c,
                    double* solution_1, double* solution_2);
 double* ScanSolutions (double coefficients[]);
-void PrintSolutions(int solution_number, double solution_1, double solution_2);
+void PrintSolutions(int solution_number, double* solution_1, double* solution_2);
 
 
 int main() {
@@ -20,7 +20,8 @@ int main() {
     double solution_1 = 0, solution_2 = 0;                   
 
     ScanSolutions(coefficients);
-    SolveEquation(&coefficients[0], &coefficients[1], &coefficients[2], &solution_1, &solution_2);
+    solution_number = SolveEquation(&coefficients[0], &coefficients[1], &coefficients[2], &solution_1, &solution_2);
+    PrintSolutions(solution_number, &solution_1, &solution_2);
     
     return 0;
 }
@@ -38,10 +39,11 @@ double* ScanSolutions(double coefficients[]) {
 int SolveEquation(double* coefficient_a, double* coefficient_b, double* coefficient_c,
                    double* solution_1, double* solution_2) {
 
-    double Discriminant = 0;
-    Discriminant = (*coefficient_b)*(*coefficient_b) - 4*(*coefficient_a)*(*coefficient_c);
+    double Discriminant = (*coefficient_b)*(*coefficient_b) - 4*(*coefficient_a)*(*coefficient_c);
 
     if (NullEqualityCheck(*coefficient_a)) {
+
+        printf("aaa\n");
 
         if (NullEqualityCheck(*coefficient_b)) {
 
@@ -65,26 +67,45 @@ int SolveEquation(double* coefficient_a, double* coefficient_b, double* coeffici
 }
 
 
-void PrintSolutions(int solution_number, double solution_1, double solution_2) {
+void PrintSolutions(int solution_number, double* solution_1, double* solution_2) {
+    printf("%d\n",solution_number);
     switch(solution_number) {
         case -1 :
             printf("Infinite number of solutions");
+            break;
+
         case 0 :
             printf("There is no solutions");
-        case 1:
-            printf("It's a linear e qeasion")
+            break;
+
+        case 1 :
+            printf("It's a linear equation. Solution is %.2lf", *solution_1);
+            break;
+
+        case 2 :
+            if (DoubleCompare(*solution_1, *solution_2)) {
+                printf("Solution is: %.2lf", *solution_1);
+            }
+            else {
+                printf("Solutions are: %.2lf, %.2lf", *solution_1, *solution_2);
+            }
+            break;
+
+        default:
+            break;
+            
     }
 }
 
 
 int NullEqualityCheck (double double_1) {
-    const double error = 1e-9;
-    return (fabs(double_1) < error) ? 1 : 0;
+    const double error = 1e-6;
 
+    return fabs(double_1) < error;
 }
 
 
 int DoubleCompare(double double_1, double double_2) {
-    const double error = 1e-9;
-    return (fabs(double_1-double_2) < error) ? 1 : 0;
+    const double error = 1e-6;
+    return (fabs(double_1 - double_2) < error) ? 1 : 0;
 }
