@@ -3,57 +3,76 @@
 #include <string.h>
 #include <stdlib.h>
 
-int Discr(int arg[]);
-void Solv(int arg[], int D);
 
-int main(){
-    int ind = 0, arg[3], D;//вспомогательная переменная и массив для хранения коэффициентов
-    char symb, str[100]; //переменная и массив для ввода коэффициентов
+int SolveEquation (double* coefficient_a, double* coefficient_b, double* coefficient_c,
+                   double* solution_1, double* solution_2);
+double* ScanSolutions (double coefficients[]);
+int NullEqualityCheck (double double_1);
+int DoubleCompare (double double_1, double double_2);
+void PrintSolutions();
 
-    printf("Enter coefficients separated by space\n");
-    
-    while(1){ //цикл ввода коэффициентов
-        scanf("%s",str);
-        arg[ind] = strtol(str,NULL,10); 
-        ind++;
 
-        if(ind >= 3){     
-            break;
-        }
-    }
+int main() {
 
-    D = Discr(arg);
+    const int coefficients_number = 3;
+    int solution_number = 0;
+    double coefficients[coefficients_number] = {0};
+    double solution_1 = 0, solution_2 = 0;                   
 
-    Solv(arg, D);
+    ScanSolutions(coefficients);
+    SolveEquation(&coefficients[0], &coefficients[1], &coefficients[2], &solution_1, &solution_2);
     
     return 0;
 }
 
-int Discr(int arg[]){ //расчет дискриминанта
-            return arg[1]*arg[1] - 4*arg[0]*arg[2];
+
+double* ScanSolutions(double coefficients[]) {
+
+    printf( "Enter coefficients separated by space\n" );
+    scanf( "%lf %lf %lf", &coefficients[0], &coefficients[1], &coefficients[2]);
+
+    return coefficients;
+}
+
+
+int SolveEquation(double* coefficient_a, double* coefficient_b, double* coefficient_c,
+                   double* solution_1, double* solution_2) {
+
+    double Discriminant = 0;
+    Discriminant = (*coefficient_b)*(*coefficient_b) - 4*(*coefficient_a)*(*coefficient_c);
+
+    if (NullEqualityCheck(*coefficient_a)) {
+
+        if (NullEqualityCheck(*coefficient_b)) {
+
+            if (NullEqualityCheck(*coefficient_c)) {
+                return -1;
+            }
+            else {
+                return 0;
+            }
         }
-
-void Solv(int arg[], int D){
-
-    float x1, x2; //переменные для решений уравнения
-
-    if (arg[0] == 0){//проверка на нулевой коэффициент
-        printf("It's not a square equation, enter correct coefficients\n");
-        main();
-
-    }else{
-        if(D > 0){ //решения при дискриминанте >0
-            x1 = (-arg[1] + sqrt(D))/(2*arg[0]);
-            x2 = (-arg[1] - sqrt(D))/(2*arg[0]);
-            printf("Solutions: %.2f %.2f \n",x1,x2);
-
-        } else if (D == 0){ //решения при дискриминанте =0
-            x1 = -arg[1]/(2*arg[0]);
-            printf("Solution: %.2f \n",x1);
-
-        } else{ //случай отсутствия решений
-            printf("There is no rational solutions\n");
-
+        else {
+            *solution_1 = *solution_2 = -*coefficient_c / *coefficient_b;
+            return 1;
         }
     }
+    else {
+        *solution_1 = (-*coefficient_b - sqrt(Discriminant)) / (2*(*coefficient_a));
+        *solution_2 = (-*coefficient_b + sqrt(Discriminant)) / (2*(*coefficient_a));
+        return 2;
+    }
+}
+
+
+int NullEqualityCheck (double double_1) {
+    const double error = 1e-9;
+    return (fabs(double_1) < error) ? 1 : 0;
+
+}
+
+
+int DoubleCompare(double double_1, double double_2) {
+    const double error = 1e-9;
+    return (fabs(double_1-double_2) < error) ? 1 : 0;
 }
