@@ -4,43 +4,68 @@
 #include "solve_equation.h"
 #include "supporting_functions.h"
 #include "enum_number_res.h"
+#include "structures.h"
 
 
 
-int SolveLinear (double* coefficient_b, double* coefficient_c,
-                 double* solution_1, double* solution_2) {
+int EquationSolver (Coefficients* equation_coeff,
+                    Result*       equation_res) {
 
-    if (DoubleCompare(*coefficient_b, 0)) {
+    if (DoubleCompare (equation_coeff->a, 0)) {
 
-        if (DoubleCompare(*coefficient_c, 0)) {
-            return INFINITE_ROOTS;
-        }
-        else {
-            return ZERO_ROOTS;
-        }
+        return SolveLinear (equation_coeff, equation_res);
+
     }
     else {
 
-        *solution_1 = *solution_2 = -*coefficient_c / *coefficient_b;
+        return SolveSquare (equation_coeff, equation_res);
+
+    }
+
+}
+
+int SolveLinear (Coefficients* equation_coeff,
+                 Result*       equation_res) {
+
+    if (DoubleCompare (equation_coeff->b, 0)) {
+
+        if (DoubleCompare (equation_coeff->c, 0)) {
+
+            return INFINITE_ROOTS;
+
+        } else {
+
+            return ZERO_ROOTS;
+
+        }
+
+    } else {
+
+        equation_res->x1 = equation_res->x2 = -equation_coeff->c / equation_coeff->b;
         return ONE_ROOT;
-        
-    }                  
+
+    }
+
 }
 
 
 
-int SolveSquare (double* coefficient_a, double* coefficient_b, double* coefficient_c,
-                double* solution_1, double* solution_2) {
+int SolveSquare (Coefficients* equation_coeff,
+                 Result*       equation_res) {
 
-    double Discriminant = (*coefficient_b)*(*coefficient_b) - 4*(*coefficient_a)*(*coefficient_c);
+    double Discriminant = equation_coeff->b * equation_coeff->b - 4 * equation_coeff->a * equation_coeff->c;
 
     if (Discriminant < 0) {
+
         return ZERO_ROOTS;
-    }
-    else {
-        *solution_1 = (-*coefficient_b - sqrt(Discriminant)) / (2*(*coefficient_a));
-        *solution_2 = (-*coefficient_b + sqrt(Discriminant)) / (2*(*coefficient_a));
+
+    } else {
+
+        equation_res->x1 = (-equation_coeff->b - sqrt(Discriminant)) / ( 2 * (equation_coeff->a));
+        equation_res->x2 = (-equation_coeff->b + sqrt(Discriminant)) / ( 2 * (equation_coeff->a));
 
         return TWO_ROOTS;
+
     }
+
 }

@@ -8,5 +8,4 @@ enum NumberRusults {
     TWO_ROOTS      = 2
 };
 
-
 #endif

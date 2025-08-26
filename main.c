@@ -9,35 +9,33 @@
 #include "structures.h"
 #include "unit_test.h"
 
+#define MAXFILENAME 100
+
 
 
 int main() {
     
     int solution_number = 0;
-    struct coefficients equation_coeff = { .a = 0, .b = 0, .c = 0 };
-    struct result       equation_res   = { .x1 = 0, .x2 = 0 };
+    struct Coefficients equation_coeff = { .a = 0, .b = 0, .c = 0 };
+    struct Result       equation_res   = { .x1 = 0, .x2 = 0 };
+    char test_file_name[MAXFILENAME] = "";
 
     if (SetWorkingMode()) {
 
-        ScanCoefficients(&equation_coeff);
-
-        if (DoubleCompare(equation_coeff.a, 0)) {
-            solution_number = SolveLinear(&equation_coeff.b, &equation_coeff.c,
-                                        &equation_res.x1, &equation_res.x2);
-        }
-        else {
-            solution_number = SolveSquare(&equation_coeff.a, &equation_coeff.b, &equation_coeff.c,
-                                        &equation_res.x1, &equation_res.x2);
-        }
-
-        PrintSolutions(solution_number, &equation_res.x1, &equation_res.x2);
+                          ScanCoefficients (&equation_coeff);
+        solution_number = EquationSolver   (&equation_coeff, &equation_res);
+                          PrintSolutions   (solution_number, &equation_res.x1, &equation_res.x2);
 
     } else {
 
-        RunTests();
+        printf("Input test parametrs file name\n");
+        scanf("%s", test_file_name);
+
+        RunTests(test_file_name);
 
     }
 
     return 0;
+    
 }
 

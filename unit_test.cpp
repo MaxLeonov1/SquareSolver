@@ -4,48 +4,82 @@
 #include "supporting_functions.h"
 #include "solve_equation.h"
 #include "unit_test.h"
+#include "structures.h"
+#include "enum_number_res.h"
 
 
 
-void RunTests(void) {
-    int test_failed = 0;
+// SolverTestData tests[] = {{.a = 0, .b =  1, .c = 4, .ref_x1 = -4, .ref_x2 = -4, .number_roots = ONE_ROOT},
+//                           {.a = 0, .b =  0, .c = 1, .ref_x1 =  0, .ref_x2 =  0, .number_roots = ZERO_ROOTS},
+//                           {.a = 0, .b =  0, .c = 0, .ref_x1 =  0, .ref_x2 =  0, .number_roots = INFINITE_ROOTS},
+//                           {.a = 1, .b =  4, .c = 3, .ref_x1 = -3, .ref_x2 = -1, .number_roots = TWO_ROOTS},
+//                           {.a = 1, .b = -2, .c = 1, .ref_x1 =  1, .ref_x2 =  1, .number_roots = TWO_ROOTS}};
 
-    test_failed += EquationSolverTest(0, 1, 4, -4, -4, 1);
-    test_failed += EquationSolverTest(0, 0, 1, 0, 0, 0);
-    test_failed += EquationSolverTest(0, 0, 0, 0, 0, -1);
-    test_failed += EquationSolverTest(1, 4, 3, -3, -1, 2);
+struct SolverTestData tests[5];
 
-    printf("Failed tests: %d \n", test_failed);
+
+
+void RunTests (char tests_file_name[]) {
+
+    int  test_pased = 0;
+    int  size       = 0;
+
+    ScanUnitTestData (tests_file_name, tests);
+
+    size = sizeof(tests) / sizeof(tests[0]);
+
+    for (int i = 0; i < size; i++) {
+
+        test_pased += EquationSolverTest (&tests[i]);
+
+    }
+
+    printf("Passed tests: %d \n", test_pased);
+
 }
 
 
 
-int  EquationSolverTest (double coefficient_a, double coefficient_b, double coefficient_c,
-                         double ref_solution_1, double ref_solution_2, int ref_number_root) {
+void ScanUnitTestData (char file_name[], SolverTestData tests[]) {
+
+    FILE* unit_test_data = fopen(file_name, "r");
     
-    double solution_1 = 0, solution_2 = 0;
-    int number_root = 0;
+    int   number_tests = 5;
 
-    if (DoubleCompare(coefficient_a, 0)) {
+    for (int test_ind = 0; test_ind < number_tests; test_ind++) {
 
-        number_root = SolveLinear(&coefficient_b, &coefficient_c, &solution_1, &solution_2);
+        fscanf(unit_test_data, "%lf %lf %lf %lf %lf %d ",
+                                &(tests[test_ind].a), &(tests[test_ind].b), &(tests[test_ind].c),
+                                &(tests[test_ind].ref_x1), &(tests[test_ind].ref_x2),
+                                &(tests[test_ind].number_roots));
+
+    }
+            
+}
+
+
+
+int EquationSolverTest (SolverTestData* test_data) {
+    
+    Result       test_solution     = {.x1 = 0, .x2 = 0};
+    Coefficients test_coefficients = {.a = test_data->a,
+                                      .b = test_data->b,
+                                      .c = test_data->c};
+
+    int number_roots = EquationSolver (&test_coefficients, &test_solution); 
+
+    if (!(DoubleCompare (test_solution.x1, test_data->ref_x1) &&
+          DoubleCompare (test_solution.x2, test_data->ref_x2) &&
+          number_roots == test_data->number_roots)) {
+
+        PrintTestFailMessage (test_data->a,      test_data->b,      test_data->c,
+                              test_solution.x1,  test_solution.x2,  number_roots,
+                              test_data->ref_x1, test_data->ref_x2, test_data->number_roots); 
 
     } else {
 
-        number_root = SolveSquare(&coefficient_a, &coefficient_b, &coefficient_c, &solution_1, &solution_2);
-
-    }
-
-    if (!(DoubleCompare(solution_1, ref_solution_1) &&
-          DoubleCompare(solution_1, ref_solution_2) &&
-          number_root == ref_number_root)) {
-
-        PrintTestFailMessage(coefficient_a, coefficient_b, coefficient_c,
-                             solution_1,  solution_2,  number_root,
-                             ref_solution_1,  ref_solution_2,  ref_number_root); 
-
-
         return 1;
-    }
-}
 
+    }
+
+}
