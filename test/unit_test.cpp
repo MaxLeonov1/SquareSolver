@@ -8,7 +8,7 @@
 #include "structures.h"
 #include "enum_number_res.h"
 
-
+//! \file Файл с функциями для Unit тестов
 
 // SolverTestData tests[] = {{.a = 0, .b =  1, .c = 4, .ref_x1 = -4, .ref_x2 = -4, .number_roots = ONE_ROOT},
 //                           {.a = 0, .b =  0, .c = 1, .ref_x1 =  0, .ref_x2 =  0, .number_roots = ZERO_ROOTS},
@@ -16,8 +16,16 @@
 //                           {.a = 1, .b =  4, .c = 3, .ref_x1 = -3, .ref_x2 = -1, .number_roots = TWO_ROOTS},
 //                           {.a = 1, .b = -2, .c = 1, .ref_x1 =  1, .ref_x2 =  1, .number_roots = TWO_ROOTS}};
 
+/*!
+    \brief Функция запуска тестирования вычисления корней.
 
+    Принимает строку с имением файла с аргументами тестов в качестве аргумента.
+    Подсчитывает количество пройденых тестов и ввыводит их в терминал.
+    Ничего не возвращает.
 
+    \param[in] tests_file_name
+
+*/
 void RunTests (char tests_file_name[]) {
 
     int  test_pased = 0;
@@ -35,9 +43,27 @@ void RunTests (char tests_file_name[]) {
 
 }
 
+/*!
+    \brief Функция считывает из файла аргументы тестирования
 
+    Функция принимает указатель на int переменную с количеством тестов,
+    и строку с названием файлов. Считывает из первой строки файла значение количества тестов, 
+    затем из каждой следующей строки считывает аргументы для тестов.
+    Затем записывает агрументы в массив структур аргументов тестирования и возвращает указатель на массив.
 
+    \param[in] number_test количество тестов
+    \param[in] file_name название файла
+
+    \return указатель на массив структур с аргументами тестов
+*/
 struct SolverTestData* ScanUnitTestData (char file_name[], int* number_tests) {
+
+    if (fopen(file_name, "r") == NULL) {
+
+        printf("Incorrect file input");
+
+    }
+    
 
     FILE* unit_test_data = fopen(file_name, "r");
     struct SolverTestData* tests;
@@ -58,8 +84,18 @@ struct SolverTestData* ScanUnitTestData (char file_name[], int* number_tests) {
             
 }
 
+/*!
+    \brief Функция тестирует решения уравнения.
 
+    Функция принимает указатель на структуру с аргументами для тестирования, 
+    затем передаёт коеффициеты в функцию для решения и сравнивает полученый результат с референсным,
+    в случае ошибки передает значения в функцию для вывода сообщения о ошибке,
+    в ином случае возвращает int 1.
 
+    \param[in] test_data
+
+    \return int 1 в случае удачного тестирования
+*/
 int EquationSolverTest (SolverTestData* test_data) {
     
     Result       test_solution     = {.x1 = 0, .x2 = 0};

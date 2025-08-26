@@ -5,8 +5,14 @@
 #include "enum_number_res.h"
 #include "input_output_functions.h"
 
+//! \file Файл для функций ввода и вывода
 
+/*!
+    \brief Функция считывает коэффициены уравнения из стандартного ввода.
 
+    Функция принимает указатель на структуру хранящую коэффициенты уравнений,
+    считывает и записывает значения в структуру. Функция ничего не возвращает.
+*/
 void ScanCoefficients(struct Coefficients* equation_coeff) {
     int coefficient_number = 0;
 
@@ -36,8 +42,17 @@ void ScanCoefficients(struct Coefficients* equation_coeff) {
 
 }
 
+/*!
+    \brief Функция выводит результат вычесления корней в терминал
 
-
+    Функция принимае переменную типа int с количеством решений и два указателя на переменные типа double.
+    В зависимости от количества решений выводит в терминал случаи решения уравнения:
+        *Бесконечное число решений
+        *Нет решений
+        *Случай с линейным уравнением
+        *Случай с квадратным уранением
+    Функция ничего не возвращает. 
+*/
 void PrintSolutions(int solution_number, double* solution_1, double* solution_2) {
 
     switch(solution_number) {

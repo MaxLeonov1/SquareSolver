@@ -11,8 +11,13 @@
 
 #define MAXFILENAME 100
 
+/*!
+    \file Главный исполняемый файл
 
+    \brief Главная функция
 
+    Тут проиходит запуск программы и задание основных переменных
+*/
 int main() {
     
     int solution_number = 0;
@@ -20,13 +25,13 @@ int main() {
     struct Result       equation_res   = { .x1 = 0, .x2 = 0 };
     char test_file_name[MAXFILENAME] = "";
 
-    if (SetWorkingMode()) {
+    if (SetWorkingMode()) {///Работа в режиме решения уравнения
 
                           ScanCoefficients (&equation_coeff);
         solution_number = EquationSolver   (&equation_coeff, &equation_res);
                           PrintSolutions   (solution_number, &equation_res.x1, &equation_res.x2);
 
-    } else {
+    } else {///Работа в режиме тестирования
 
         printf("Input test parametrs file name\n");
         scanf("%s", test_file_name);

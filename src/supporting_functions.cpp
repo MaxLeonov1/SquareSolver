@@ -3,8 +3,14 @@
 
 #include "supporting_functions.h"
 
+//! \file Файл для вспомогательных функций
 
-
+/*!
+    \brief Функция выполняет сравнение двух переменных типа double с учетом возможности накопления погрешности.
+    
+    Функция принимает значения двух переменных типа double и сравнивает их разность с заданой в функции погрешностью.
+    Функция возвращает значение int 1 если они равны, int 0 если нет.
+*/
 int DoubleCompare (double double_1, double double_2) {
 
     const double error = 1e-6;
@@ -12,15 +18,25 @@ int DoubleCompare (double double_1, double double_2) {
     return (fabs (double_1 - double_2) < error) ? 1 : 0;
 }
 
+/*!
+    \brief Функция очистки буффера ввода
 
-
+    Ничего не принимает и не возвращает.
+    Проходится функцией getchar() по буфферу пока не дойдёт до символа новой строки.
+*/
 void ResetInputBuffer (void) {
 
     while (getchar() != '\n');
 }
 
+/*!
+    \brief Функция для вывода сообщения о ошибки во время тестирования функций решения уравнения.
 
-
+    Принимает переменные типа double для значений коэффициентов уравнения , решнений и референсных решений,
+    а также переменные типа int для количества решений и референсного количества решений.
+    Выводит всю информацию в терминал.
+    Функция ничего не возвращает
+*/
 void PrintTestFailMessage (double coefficient_a,  double coefficient_b,  double coefficient_c,  
                            double solution_1,     double solution_2,     int number_root,
                            double ref_solution_1, double ref_solution_2, int ref_number_root) {
@@ -48,8 +64,12 @@ void PrintTestFailMessage (double coefficient_a,  double coefficient_b,  double 
 
 }
 
-
-
+/*!
+    \brief Функция задаёт режим работы программы (тестирование или решение)
+    
+    Функция считывает из терминала символ. В случае символа Т возвращает int 0, в случае символа S - int 1,
+    в иных случаях выводит сообщение о ошибке ввода и начинает процедуру выбора режима сначала.
+*/
 int SetWorkingMode(void) {
 
     char working_mode = 'S';
