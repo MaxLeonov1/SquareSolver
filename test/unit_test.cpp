@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "input_output_functions.h"
 #include "supporting_functions.h"
@@ -15,8 +16,6 @@
 //                           {.a = 1, .b =  4, .c = 3, .ref_x1 = -3, .ref_x2 = -1, .number_roots = TWO_ROOTS},
 //                           {.a = 1, .b = -2, .c = 1, .ref_x1 =  1, .ref_x2 =  1, .number_roots = TWO_ROOTS}};
 
-struct SolverTestData tests[5];
-
 
 
 void RunTests (char tests_file_name[]) {
@@ -24,14 +23,12 @@ void RunTests (char tests_file_name[]) {
     int  test_pased = 0;
     int  size       = 0;
 
-    ScanUnitTestData (tests_file_name, tests);
-
-    size = sizeof(tests) / sizeof(tests[0]);
+    struct SolverTestData* tests = ScanUnitTestData (tests_file_name, &size);
 
     for (int i = 0; i < size; i++) {
 
-        test_pased += EquationSolverTest (&tests[i]);
-
+        test_pased += EquationSolverTest ( &tests[i] );
+        
     }
 
     printf("Passed tests: %d \n", test_pased);
@@ -40,13 +37,15 @@ void RunTests (char tests_file_name[]) {
 
 
 
-void ScanUnitTestData (char file_name[], SolverTestData tests[]) {
+struct SolverTestData* ScanUnitTestData (char file_name[], int* number_tests) {
 
     FILE* unit_test_data = fopen(file_name, "r");
-    
-    int   number_tests = 5;
+    struct SolverTestData* tests;
 
-    for (int test_ind = 0; test_ind < number_tests; test_ind++) {
+    fscanf(unit_test_data, "%d", number_tests);
+    tests = (struct SolverTestData*) malloc(*number_tests * sizeof(struct SolverTestData));
+
+    for (int test_ind = 0; test_ind < *number_tests; test_ind++) {
 
         fscanf(unit_test_data, "%lf %lf %lf %lf %lf %d ",
                                 &(tests[test_ind].a), &(tests[test_ind].b), &(tests[test_ind].c),
@@ -54,6 +53,8 @@ void ScanUnitTestData (char file_name[], SolverTestData tests[]) {
                                 &(tests[test_ind].number_roots));
 
     }
+
+    return tests;
             
 }
 

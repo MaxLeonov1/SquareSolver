@@ -3,6 +3,6 @@
 
 void RunTests           (char tests_file_name[]);
 int  EquationSolverTest (SolverTestData* test_data);
-void ScanUnitTestData   (char file_name[], SolverTestData test[]);
+struct SolverTestData* ScanUnitTestData   (char file_name[], int* number_tests);
 
 #endif
