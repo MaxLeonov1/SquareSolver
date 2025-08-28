@@ -1,5 +1,0 @@
-var searchData=
-[
-  ['printsolutions_0',['PrintSolutions',['../input__output__functions_8cpp.html#a38db40afe4e8d429ed058e65163109f6',1,'PrintSolutions(int solution_number, double *solution_1, double *solution_2):&#160;input_output_functions.cpp'],['../input__output__functions_8h.html#a38db40afe4e8d429ed058e65163109f6',1,'PrintSolutions(int solution_number, double *solution_1, double *solution_2):&#160;input_output_functions.cpp']]],
-  ['printtestfailmessage_1',['PrintTestFailMessage',['../supporting__functions_8cpp.html#aa207af92c14ffe57f3867104ba45839d',1,'PrintTestFailMessage(double coefficient_a, double coefficient_b, double coefficient_c, double solution_1, double solution_2, int number_root, double ref_solution_1, double ref_solution_2, int ref_number_root):&#160;supporting_functions.cpp'],['../supporting__functions_8h.html#aa207af92c14ffe57f3867104ba45839d',1,'PrintTestFailMessage(double coefficient_a, double coefficient_b, double coefficient_c, double solution_1, double solution_2, int number_root, double ref_solution_1, double ref_solution_2, int ref_number_root):&#160;supporting_functions.cpp']]]
-];
