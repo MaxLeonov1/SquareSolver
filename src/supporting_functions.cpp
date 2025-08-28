@@ -32,7 +32,8 @@ int DoubleCompare (double double_1, double double_2) {
 void ResetInputBuffer (void) {
 
     while (getchar() != '\n');
-}
+
+} // isspace
 
 /*!
     \brief Функция для вывода сообщения о ошибки во время тестирования функций решения уравнения.

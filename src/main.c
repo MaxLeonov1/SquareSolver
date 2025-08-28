@@ -23,7 +23,7 @@
     \note -t или --test для режима тестирования
           -s или --solve для режима решения
 */
-int main(int argc, char* argv[]) {
+int main(const int argc, const char* argv[]) {
     
     int    solution_number             = 0;
     struct Coefficients equation_coeff = { .a = 0, .b = 0, .c = 0 };
@@ -66,4 +66,3 @@ int main(int argc, char* argv[]) {
     return 0;
     
 }
-

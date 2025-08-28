@@ -55,7 +55,7 @@ void RunTests (char tests_file_name[]) {
 struct SolverTestData* ScanUnitTestData (char file_name[], int* number_tests) {
     
     FILE* unit_test_data = fopen(file_name, "r");
-    struct SolverTestData* tests;
+    struct SolverTestData* tests = nullptr;
 
     fscanf(unit_test_data, "%d", number_tests);
     tests = (struct SolverTestData*) malloc(*number_tests * sizeof(struct SolverTestData));
