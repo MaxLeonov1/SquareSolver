@@ -17,27 +17,49 @@
 /*!
     \brief Главная функция
 
-    Тут проиходит запуск программы и задание основных переменных
+    \details Тут происходит запуск программы и задание основных переменных, выбор режима работы 
+    по средством ввода аргументов командной строки
+
+    \note -t или --test для режима тестирования
+          -s или --solve для режима решения
 */
-int main() {
+int main(int argc, char* argv[]) {
     
-    int solution_number = 0;
+    int    solution_number             = 0;
     struct Coefficients equation_coeff = { .a = 0, .b = 0, .c = 0 };
     struct Result       equation_res   = { .x1 = 0, .x2 = 0 };
-    char test_file_name[MAXFILENAME] = "";
 
-    if (SetWorkingMode()) {///Работа в режиме решения уравнения
+    if (argc >= 2) {
 
-                          ScanCoefficients (&equation_coeff);
-        solution_number = EquationSolver   (&equation_coeff, &equation_res);
-                          PrintSolutions   (solution_number, &equation_res.x1, &equation_res.x2);
+        if ((strcmp(argv[1], "--solve") == 0 ||
+             strcmp(argv[1], "-s") == 0) && argc == 2) {///* Pежим решения уравнения
 
-    } else {///Работа в режиме тестирования
+                              ScanCoefficients (&equation_coeff);
+            solution_number = EquationSolver   (&equation_coeff, &equation_res);
+                              PrintSolutions   (solution_number, &equation_res.x1, &equation_res.x2);
 
-        printf("Input test parametrs file name\n");
-        scanf("%s", test_file_name);
+        } else if ((strcmp(argv[1], "--test") == 0 ||
+                    strcmp(argv[1], "-t")) == 0 && argc == 3) {///* Режим тестирования
 
-        RunTests(test_file_name);
+            if (fopen(argv[2], "r") != NULL) {
+
+                RunTests(argv[2]);
+                
+            } else {
+
+                UndefCommandPrint();
+
+            }
+            
+        } else {
+
+            UndefCommandPrint();
+
+        } 
+
+    } else {
+
+        UndefCommandPrint();
 
     }
 

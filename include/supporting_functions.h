@@ -5,7 +5,7 @@
     \file Хедер вспомагательных функций
 */
 
-int  SetWorkingMode       (void);
+void UndefCommandPrint    (void);
 int  DoubleCompare        (double double_1, double double_2);
 void ResetInputBuffer     (void);
 void PrintTestFailMessage (double coefficient_a, double coefficient_b, double coefficient_c,

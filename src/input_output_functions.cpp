@@ -31,7 +31,7 @@ void ScanCoefficients(struct Coefficients* equation_coeff) {
             coefficient_number = 0;
 
             printf("___________________________\n"
-                   "Incorrect input, try again.\n"
+                   "\033[31mIncorrect input, try again.\033[0m\n"
                    "___________________________\n");
 
         } else {
@@ -65,21 +65,21 @@ void PrintSolutions(int solution_number, double* solution_1, double* solution_2)
         case INFINITE_ROOTS:
 
             printf("____________________________\n"
-                   "Infinite number of solutions\n"
+                   "\033[32mInfinite number of solutions\033[0m\n"
                    "____________________________\n");
             break;
 
         case ZERO_ROOTS:
 
             printf("_____________________\n"
-                   "There is no solutions\n"
+                   "\033[31mThere is no solutions\033[0m\n"
                    "_____________________\n");
             break;
 
         case ONE_ROOT:
 
             printf("______________________________________________\n"
-                   "It's a linear equation. Solution is %10.2lf\n"
+                   "It's a linear equation. Solution is \033[32m%.2lf\033[0m\n"
                    "______________________________________________\n",
                    *solution_1);
             break;
@@ -89,14 +89,14 @@ void PrintSolutions(int solution_number, double* solution_1, double* solution_2)
             if (DoubleCompare(*solution_1, *solution_2)) {
 
                 printf("_______________________\n"
-                       "Solution is: %10.2lf\n"
+                       "Solution is: \033[32m%.2lf\033[0m\n"
                        "_______________________\n",
                        *solution_1);
             }
             else {
 
                 printf("_____________________________________\n"
-                       "Solutions are: %10.2lf, %10.2lf\n"
+                       "Solutions are: \033[32m%.2lf, %.2lf\033[0m\n"
                        "_____________________________________\n",
                        *solution_1, *solution_2);
             }
