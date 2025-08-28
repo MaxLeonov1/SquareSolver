@@ -1,6 +1,10 @@
 #ifndef _SUPP_FUNC_H_
 #define _SUPP_FUNC_H_
 
+/*!
+    \file Хедер вспомагательных функций
+*/
+
 int  SetWorkingMode       (void);
 int  DoubleCompare        (double double_1, double double_2);
 void ResetInputBuffer     (void);

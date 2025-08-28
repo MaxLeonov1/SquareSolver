@@ -9,11 +9,12 @@
 #include "structures.h"
 #include "unit_test.h"
 
-#define MAXFILENAME 100
+/*!
+    Определяет максимальную длину названия файла
+*/
+#define MAXFILENAME 100 
 
 /*!
-    \file Главный исполняемый файл
-
     \brief Главная функция
 
     Тут проиходит запуск программы и задание основных переменных

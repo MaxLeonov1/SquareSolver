@@ -12,6 +12,8 @@
 
     Функция принимает указатель на структуру хранящую коэффициенты уравнений,
     считывает и записывает значения в структуру. Функция ничего не возвращает.
+
+    \param[in] equation_coeff указатель на структуру с коэффициентами
 */
 void ScanCoefficients(struct Coefficients* equation_coeff) {
     int coefficient_number = 0;
@@ -51,7 +53,10 @@ void ScanCoefficients(struct Coefficients* equation_coeff) {
         *Нет решений
         *Случай с линейным уравнением
         *Случай с квадратным уранением
-    Функция ничего не возвращает. 
+    Функция ничего не возвращает.
+    
+    \param[in] solution_number количество решений
+    \param[in] solution_1, solution_2 решения уравнений
 */
 void PrintSolutions(int solution_number, double* solution_1, double* solution_2) {
 

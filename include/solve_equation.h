@@ -1,6 +1,10 @@
 #ifndef _SOLV_EQ_H_
 #define _SUPP_EQ_H_
 
+/*!
+    \file Хедер функций решения уравнения
+*/
+
 #include "structures.h"
 
 int EquationSolver (Coefficients* equation_coeff,

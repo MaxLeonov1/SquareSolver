@@ -10,6 +10,11 @@
     
     Функция принимает значения двух переменных типа double и сравнивает их разность с заданой в функции погрешностью.
     Функция возвращает значение int 1 если они равны, int 0 если нет.
+
+    \param[in] double_1 первое число для сравнения
+    \param[in] double_2 второе число для сравнения
+
+    \return 1 если равны, 0 если нет 
 */
 int DoubleCompare (double double_1, double double_2) {
 
@@ -36,6 +41,12 @@ void ResetInputBuffer (void) {
     а также переменные типа int для количества решений и референсного количества решений.
     Выводит всю информацию в терминал.
     Функция ничего не возвращает
+
+    \param[in] coefficient_a, coefficient_b, coefficient_c коэффициенты передаваемые функции решения
+    \param[in] solution_1, solution_2 решения найденные функцией решения 
+    \param[in] number_root количество корней найденное функцией решения
+    \param[in] ref_solution_1, ref_solution_2 референсные решения
+    \param[in] ref_number_root референсное количество корней
 */
 void PrintTestFailMessage (double coefficient_a,  double coefficient_b,  double coefficient_c,  
                            double solution_1,     double solution_2,     int number_root,
@@ -69,6 +80,8 @@ void PrintTestFailMessage (double coefficient_a,  double coefficient_b,  double 
     
     Функция считывает из терминала символ. В случае символа Т возвращает int 0, в случае символа S - int 1,
     в иных случаях выводит сообщение о ошибке ввода и начинает процедуру выбора режима сначала.
+
+    \return 1 если режим решения, 0 если режим тестирования
 */
 int SetWorkingMode(void) {
 

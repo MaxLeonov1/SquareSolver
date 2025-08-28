@@ -15,6 +15,11 @@
     В зависимости от значения коэффициена "а" передаёт указатели на переданные в неё стуктуры
     в функции для линейного решения уравнения или квадратного.
     Возвращает int переменную с количеством решений уравнения.
+
+    \param[in] equation_coeff указатель на структуру с коэффициентами
+    \param[in] equation_res   указатель на структуру с решениями
+
+    \return количество корней
 */
 int EquationSolver (Coefficients* equation_coeff,
                     Result*       equation_res) {
@@ -41,6 +46,11 @@ int EquationSolver (Coefficients* equation_coeff,
         *Нет корней
         *Линейное решение с одним корнем
     Возвращает int переменную с количеством решений уравнения.
+
+    \param[in] equation_coeff указатель на структуру с коэффициентами
+    \param[in] equation_res   указатель на структуру с решениями
+
+    \return количество корней
 */
 int SolveLinear (Coefficients* equation_coeff,
                  Result*       equation_res) {
@@ -74,6 +84,11 @@ int SolveLinear (Coefficients* equation_coeff,
         *Нет корней
         *Квадратное решение с двумя корнями
     Возвращает int переменную с количеством решений уравнения.
+
+    \param[in] equation_coeff указатель на структуру с коэффициентами
+    \param[in] equation_res   указатель на структуру с решениями
+
+    \return количество корней
 */
 int SolveSquare (Coefficients* equation_coeff,
                  Result*       equation_res) {
