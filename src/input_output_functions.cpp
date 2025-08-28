@@ -20,9 +20,10 @@ void ScanCoefficients(struct Coefficients* equation_coeff) {
 
     while(1) {
 
-        printf("_____________________________________\n"
-               "Enter coefficients separated by space\n"
-               "_____________________________________\n");
+        printf("_______________________________________\n"
+               "Enter 3 coefficients separated by space\n"
+               " \033[33m(only 3 coefficients will be scaned)\033[0m\n"
+               "_______________________________________\n");
         coefficient_number = scanf( "%lf %lf %lf", &(*equation_coeff).a, &(*equation_coeff).b, &(*equation_coeff).c);
 
         if(coefficient_number < 3) {
