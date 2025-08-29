@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
 
 #include "solve_equation.h"
 #include "supporting_functions.h"
@@ -23,6 +24,8 @@
 */
 int EquationSolver (Coefficients* equation_coeff,
                     Result*       equation_res) {
+
+    assert(equation_coeff != 0 || equation_res != 0);
 
     if (DoubleCompare (equation_coeff->a, 0)) {
 
@@ -54,6 +57,8 @@ int EquationSolver (Coefficients* equation_coeff,
 */
 int SolveLinear (Coefficients* equation_coeff,
                  Result*       equation_res) {
+
+    assert(equation_coeff != 0 || equation_res != 0);
 
     if (DoubleCompare (equation_coeff->b, 0)) {
 
@@ -93,7 +98,13 @@ int SolveLinear (Coefficients* equation_coeff,
 int SolveSquare (Coefficients* equation_coeff,
                  Result*       equation_res) {
 
-    double Discriminant = equation_coeff->b * equation_coeff->b - 4 * equation_coeff->a * equation_coeff->c;
+    assert(equation_coeff != 0 || equation_res != 0);
+
+    double coeff_a = equation_coeff->a,
+           coeff_b = equation_coeff->b,
+           coeff_c = equation_coeff->c;
+
+    double Discriminant = coeff_b * coeff_b - 4 * coeff_a * coeff_c;
 
     if (Discriminant < 0) {
 
@@ -101,8 +112,8 @@ int SolveSquare (Coefficients* equation_coeff,
 
     } else {
 
-        equation_res->x1 = (-equation_coeff->b - sqrt(Discriminant)) / ( 2 * (equation_coeff->a));
-        equation_res->x2 = (-equation_coeff->b + sqrt(Discriminant)) / ( 2 * (equation_coeff->a));
+        equation_res->x1 = (-coeff_b - sqrt(Discriminant)) / ( 2 * (coeff_a));
+        equation_res->x2 = (-coeff_b + sqrt(Discriminant)) / ( 2 * (coeff_a));
 
         return TWO_ROOTS;
 

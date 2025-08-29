@@ -1,9 +1,12 @@
 #include <stdio.h>
+#include <assert.h>
 
 #include "supporting_functions.h"
 #include "structures.h"
 #include "enum_number_res.h"
 #include "input_output_functions.h"
+#include "colours.h"
+
 
 //! \file Файл для функций ввода и вывода
 
@@ -16,14 +19,17 @@
     \param[in] equation_coeff указатель на структуру с коэффициентами
 */
 void ScanCoefficients(struct Coefficients* equation_coeff) {
+
+    assert(equation_coeff != 0);
+
     int coefficient_number = 0;
 
     while(1) {
 
         printf("_______________________________________\n"
                "Enter 3 coefficients separated by space\n"
-               " \033[33m(only 3 coefficients will be scaned)\033[0m\n"
-               "_______________________________________\n");
+               " %s(only 3 coefficients will be scaned)%s\n"
+               "_______________________________________\n", YELLOW, RES_COL);
         coefficient_number = scanf( "%lf %lf %lf", &(*equation_coeff).a, &(*equation_coeff).b, &(*equation_coeff).c);
 
         if(coefficient_number < 3) {
@@ -32,8 +38,8 @@ void ScanCoefficients(struct Coefficients* equation_coeff) {
             coefficient_number = 0;
 
             printf("___________________________\n"
-                   "\033[31mIncorrect input, try again.\033[0m\n"
-                   "___________________________\n");
+                   "%sIncorrect input, try again.%s\n"
+                   "___________________________\n", RED, RES_COL);
 
         } else {
 
@@ -61,28 +67,32 @@ void ScanCoefficients(struct Coefficients* equation_coeff) {
 */
 void PrintSolutions(int solution_number, double* solution_1, double* solution_2) {
 
+    assert(solution_1 != 0 || solution_2 != 0);
+
     switch(solution_number) {
 
         case INFINITE_ROOTS:
 
             printf("____________________________\n"
-                   "\033[32mInfinite number of solutions\033[0m\n"
-                   "____________________________\n");
+                   "%sInfinite number of solutions%s\n"
+                   "____________________________\n",
+                   GREEN, RES_COL);
             break;
 
         case ZERO_ROOTS:
 
             printf("_____________________\n"
-                   "\033[31mThere is no solutions\033[0m\n"
-                   "_____________________\n");
+                   "%sThere is no solutions%s\n"
+                   "_____________________\n", 
+                   RED, RES_COL);
             break;
 
         case ONE_ROOT:
 
             printf("______________________________________________\n"
-                   "It's a linear equation. Solution is \033[32m%.2lf\033[0m\n"
+                   "It's a linear equation. Solution is %s%.2lf%s"
                    "______________________________________________\n",
-                   *solution_1);
+                   GREEN, *solution_1, RES_COL);
             break;
 
         case TWO_ROOTS:
@@ -90,16 +100,16 @@ void PrintSolutions(int solution_number, double* solution_1, double* solution_2)
             if (DoubleCompare(*solution_1, *solution_2)) {
 
                 printf("_______________________\n"
-                       "Solution is: \033[32m%.2lf\033[0m\n"
+                       "Solution is: %s%.2lf%s\n"
                        "_______________________\n",
-                       *solution_1);
+                       GREEN, *solution_1, RES_COL);
             }
             else {
 
                 printf("_____________________________________\n"
-                       "Solutions are: \033[32m%.2lf, %.2lf\033[0m\n"
+                       "Solutions are: %s%.2lf, %.2lf%s\n"
                        "_____________________________________\n",
-                       *solution_1, *solution_2);
+                       GREEN, *solution_1, *solution_2, RES_COL);
             }
             break;
 

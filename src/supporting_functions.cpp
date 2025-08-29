@@ -2,6 +2,7 @@
 #include <math.h>
 
 #include "supporting_functions.h"
+#include "colours.h"
 
 //! \file Файл для вспомогательных функций
 
@@ -81,9 +82,10 @@ void PrintTestFailMessage (double coefficient_a,  double coefficient_b,  double 
 */
 void UndefCommandPrint(void) {
 
-    printf("\033[31m----------------\033[0m\n"
-           "\033[31mUndefined comand\033[0m\n"
-           "\033[31m----------------\033[0m\n");
+    printf("%s----------------\n"
+             "Undefined comand\n"
+             "----------------%s\n",
+             RED, RES_COL);
 
 
 }

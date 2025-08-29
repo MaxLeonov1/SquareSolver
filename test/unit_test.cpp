@@ -20,7 +20,7 @@
     \param[in] tests_file_name
 
 */
-void RunTests (char tests_file_name[]) {
+void RunTests (const char tests_file_name[]) {
 
     int  test_pased = 0;
     int  size       = 0;
@@ -52,13 +52,13 @@ void RunTests (char tests_file_name[]) {
 
     \return указатель на массив структур с аргументами тестов
 */
-struct SolverTestData* ScanUnitTestData (char file_name[], int* number_tests) {
+struct SolverTestData* ScanUnitTestData (const char file_name[], int* number_tests) {
     
     FILE* unit_test_data = fopen(file_name, "r");
     struct SolverTestData* tests = nullptr;
 
     fscanf(unit_test_data, "%d", number_tests);
-    tests = (struct SolverTestData*) malloc(*number_tests * sizeof(struct SolverTestData));
+    tests = (struct SolverTestData*) calloc(*number_tests, sizeof(struct SolverTestData));
 
     for (int test_ind = 0; test_ind < *number_tests; test_ind++) {
 

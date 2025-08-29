@@ -25,9 +25,9 @@
 */
 int main(const int argc, const char* argv[]) {
     
-    int    solution_number             = 0;
-    struct Coefficients equation_coeff = { .a = 0, .b = 0, .c = 0 };
-    struct Result       equation_res   = { .x1 = 0, .x2 = 0 };
+    int                 solution_number = 0;
+    struct Coefficients equation_coeff  = { .a = 0, .b = 0, .c = 0 };
+    struct Result       equation_res    = { .x1 = 0, .x2 = 0 };
 
     if (argc >= 2) {
 
