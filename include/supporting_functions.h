@@ -5,6 +5,7 @@
     \file Хедер вспомагательных функций
 */
 
+void IncorInputPrint      (void);
 void UndefCommandPrint    (void);
 int  DoubleCompare        (double double_1, double double_2);
 void ResetInputBuffer     (void);

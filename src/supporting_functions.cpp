@@ -31,7 +31,7 @@ int DoubleCompare (double double_1, double double_2) {
     Проходится функцией getchar() по буфферу пока не дойдёт до символа новой строки.
 */
 void ResetInputBuffer (void) {
-
+    
     while (getchar() != '\n');
 
 } // isspace
@@ -87,5 +87,16 @@ void UndefCommandPrint(void) {
              "----------------%s\n",
              RED, RES_COL);
 
+
+}
+
+/*!
+    \brief Функция вывода сообщения о некорректном вводе
+*/
+void IncorInputPrint(void) {
+
+    printf("___________________________\n"
+           "%sIncorrect input, try again.%s\n"
+           "___________________________\n", RED, RES_COL);
 
 }

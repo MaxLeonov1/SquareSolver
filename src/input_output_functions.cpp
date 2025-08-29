@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include <ctype.h>
 
 #include "supporting_functions.h"
 #include "structures.h"
@@ -37,15 +38,14 @@ void ScanCoefficients(struct Coefficients* equation_coeff) {
             ResetInputBuffer();
             coefficient_number = 0;
 
-            printf("___________________________\n"
-                   "%sIncorrect input, try again.%s\n"
-                   "___________________________\n", RED, RES_COL);
 
-        } else {
-
+        } else if (isspace(getchar()) > 0){
+            
             break;
 
         }
+
+        IncorInputPrint();
 
     }
 
