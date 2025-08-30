@@ -32,25 +32,32 @@ int main(const int argc, const char* argv[]) {
     if (argc >= 2) {
 
         if ((strcmp(argv[1], "--solve") == 0 ||
-             strcmp(argv[1], "-s") == 0) && argc == 2) {///* Pежим решения уравнения
+             strcmp(argv[1], "-s") == 0)) {///* Pежим решения уравнения
 
-                              ScanCoefficients (&equation_coeff);
-            solution_number = EquationSolver   (&equation_coeff, &equation_res);
-                              PrintSolutions   (solution_number, &equation_res.x1, &equation_res.x2);
+            if (argc == 2) {
 
-        } else if ((strcmp(argv[1], "--test") == 0 ||
-                    strcmp(argv[1], "-t")) == 0 && argc == 3) {///* Режим тестирования
+                                  ScanCoefficients (&equation_coeff);
+                solution_number = EquationSolver   (&equation_coeff, &equation_res);
+                                  PrintSolutions   (solution_number, &equation_res.x1, &equation_res.x2);
 
-            if (fopen(argv[2], "r") != NULL) {
+            } else if ((strcmp(argv[2], "--file") == 0 ||
+                        strcmp(argv[2], "-f") == 0) && 
+                        argc == 4 && fopen(argv[3], "r") != NULL) {
 
-                RunTests(argv[2]);
-                
+                printf("FILE_INPUT\n");
+
             } else {
 
                 UndefCommandPrint();
 
             }
-            
+
+        } else if ((strcmp(argv[1], "--test") == 0 ||
+                    strcmp(argv[1], "-t")) == 0 && 
+                    argc == 3 && fopen(argv[2], "r") != NULL) {///* Режим тестирования
+
+            RunTests(argv[2]);
+
         } else {
 
             UndefCommandPrint();
